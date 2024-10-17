@@ -98,6 +98,19 @@ def toggle_blacklist(id):
     db.session.commit()
     return jsonify({"message": f"Contact blacklist status toggled to {contact.blacklist}"}), 200
 
+# 更新联系人信息的路由
+@app.route('/update_contact/<int:id>', methods=['PUT'])
+def update_contact(id):
+    data = request.json
+    contact = Contact.query.get_or_404(id)
+
+    contact.name = data.get('name', contact.name)
+    contact.phone = data.get('phone', contact.phone)
+    contact.student_id = data.get('student_id', contact.student_id)
+
+    db.session.commit()
+    return jsonify({"message": "Contact updated successfully!"}), 200
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # 在应用上下文中创建所有表
