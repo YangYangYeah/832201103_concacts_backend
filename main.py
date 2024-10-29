@@ -114,4 +114,4 @@ def update_contact(id):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # 在应用上下文中创建所有表
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
